@@ -134,7 +134,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""id"": ""76b6a09c-4c28-437e-8e2c-f18df623fbd0"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""NormalizeVector2"",
                     ""groups"": """",
                     ""action"": ""Look"",
                     ""isComposite"": false,
