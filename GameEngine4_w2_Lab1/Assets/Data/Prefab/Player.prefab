@@ -2885,6 +2885,7 @@ GameObject:
   - component: {fileID: 1274018559137722}
   - component: {fileID: 8224133826213879797}
   - component: {fileID: 2636272497625755808}
+  - component: {fileID: 1530954670}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2999,6 +3000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be7cb6d2d1b193408f54062f63751a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crosshairComponent: {fileID: 0}
   IsFiring: 0
   IsReloading: 0
   IsJumping: 0
@@ -3048,6 +3050,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1530954670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6040867984467747398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df21c0f3c3d0ca44ada53a49246c3bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponToSpawn: {fileID: 4305352491504144450, guid: 7696451661cb5c04da205861fee489f1, type: 3}
+  weaponSocketLocation: {fileID: 8291789336456070630}
 --- !u!1 &6040881103033503570
 GameObject:
   m_ObjectHideFlags: 0
