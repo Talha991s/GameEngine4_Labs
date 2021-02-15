@@ -420,13 +420,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: Aim Horizontal
+  - m_Name: AimHorizontal
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: Aim Vertical
+  - m_Name: AimVertical
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -454,7 +454,7 @@ AnimatorController:
     m_BlendingMode: 1
     m_SyncedLayerIndex: -1
     m_DefaultWeight: 1
-    m_IKPass: 0
+    m_IKPass: 1
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
@@ -466,7 +466,7 @@ AnimatorController:
     m_BlendingMode: 1
     m_SyncedLayerIndex: -1
     m_DefaultWeight: 1
-    m_IKPass: 0
+    m_IKPass: 1
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
 --- !u!1101 &2149193743219592730
@@ -693,7 +693,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: MovementX
     m_Mirror: 0
-  m_BlendParameter: Aim Horizontal
+  m_BlendParameter: AimHorizontal
   m_BlendParameterY: MovementX
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -732,7 +732,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: MovementX
     m_Mirror: 0
-  m_BlendParameter: Aim Vertical
+  m_BlendParameter: AimVertical
   m_BlendParameterY: MovementX
   m_MinThreshold: 0
   m_MaxThreshold: 1

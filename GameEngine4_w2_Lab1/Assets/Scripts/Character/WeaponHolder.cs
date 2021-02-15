@@ -13,6 +13,8 @@ namespace Character
 
         [SerializeField] private Transform weaponSocketLocation;
 
+        private Transform GripIKLocation;
+
         //compnents
         private PlayerController PlayerController;
         private Crosshair PlayerCrosshair;
@@ -20,10 +22,11 @@ namespace Character
 
         //Ref
         private Camera viewCamera;
-
+        private static readonly int AimHorizontalHash = Animator.StringToHash("AimHorizontal");
+        private static readonly int AimVerticalHash = Animator.StringToHash("AimVertical");
         private void Awake()
         {
-
+           // base.Awake();
             PlayerAnimator = GetComponent<Animator>();
 
             PlayerController = GetComponent<PlayerController>();
@@ -38,26 +41,45 @@ namespace Character
         void Start()
         {
             GameObject spawnweapon = Instantiate(weaponToSpawn, weaponSocketLocation.position, weaponSocketLocation.rotation, weaponSocketLocation);
-
+            if(spawnweapon)
+            {
+                WeaponComponent weapon = spawnweapon.GetComponent<WeaponComponent>();
+                if(weapon)
+                {
+                    GripIKLocation = weapon.GripLocation;
+                }
+            }
         }
-        public void OnLook(InputValue delta)
+
+        private void OnAnimatorIK(int layerIndex)
         {
-            Vector2 independentMousePosition = viewCamera.ScreenToViewportPoint(PlayerCrosshair.CurrentAimPosition);
-           // Vector3 independentMousePosition = viewCamera.ScreenToViewportPoint(PlayerCrosshair.CurrentAimPosition);
-            Debug.Log(independentMousePosition);
+            PlayerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
+            PlayerAnimator.SetIKPosition(AvatarIKGoal.LeftHand, GripIKLocation.position);
         }
 
-        //private void //OnEnable()
+        public void OnLook(InputValue obj)
+        {
+            Vector3 independentMousePosition = viewCamera.ScreenToViewportPoint(PlayerController.Crosshair.CurrentAimPosition);
+            //Vector3 independentMousePosition = viewCamera.ScreenToViewportPoint(PlayerCrosshair.CurrentAimPosition);
+            Debug.Log(independentMousePosition);
+
+            PlayerAnimator.SetFloat(AimHorizontalHash, independentMousePosition.x);
+            PlayerAnimator.SetFloat(AimVerticalHash, independentMousePosition.y);
+        }
+
+        //private new void OnEnable()
         //{
         //    base.OnEnable();
+        //    //GameInput.PlayerActionMap.Look.performed += OnLook;
         //    GameInput.PlayerActionMap.Look.performed += OnLook;
         //}
-
-
-        //private void OnDisable()
+        //private new void OnDisable()
         //{
         //    base.OnDisable();
         //    GameInput.PlayerActionMap.Look.performed -= OnLook;
         //}
     }
+
+
+
 }

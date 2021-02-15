@@ -311,10 +311,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aacd6503bf09874392606ce69fea06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MouseSensitivity: {x: 1.5, y: 1.5}
+  MouseSensitivity: {x: 2.5, y: 2.5}
   Inverted: 0
-  CrosshairVerticalPercentage: 0.3
-  CrosshairHorizontalPercentage: 0.3
+  CrosshairVerticalPercentage: 0.25
+  CrosshairHorizontalPercentage: 0.25
 --- !u!43 &574917561
 Mesh:
   m_ObjectHideFlags: 0
@@ -1600,6 +1600,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1274018559137721, guid: e1e0f658721711f4581cc71bd1b6c070, type: 3}
+      propertyPath: crosshairComponent
+      value: 
+      objectReference: {fileID: 146423173}
     - target: {fileID: 6040867984467747398, guid: e1e0f658721711f4581cc71bd1b6c070, type: 3}
       propertyPath: m_Name
       value: Player
