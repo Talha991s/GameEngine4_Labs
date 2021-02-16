@@ -24,6 +24,8 @@ namespace Character
         private Camera viewCamera;
         private static readonly int AimHorizontalHash = Animator.StringToHash("AimHorizontal");
         private static readonly int AimVerticalHash = Animator.StringToHash("AimVertical");
+        private static readonly int IsFiringHash = Animator.StringToHash("IsFiring");
+        private static readonly int IsReloadingHash = Animator.StringToHash("IsReloading");
         private void Awake()
         {
            // base.Awake();
@@ -55,6 +57,26 @@ namespace Character
         {
             PlayerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
             PlayerAnimator.SetIKPosition(AvatarIKGoal.LeftHand, GripIKLocation.position);
+        }
+        public void OnReload(InputValue pressed)
+        {
+            Debug.Log("Reloading");
+
+            PlayerAnimator.SetBool(IsReloadingHash, true);
+        }
+        public void OnFire(InputValue pressed)
+        {
+           // bool isFiring = pressed.ReadValue<float>() == 1.0f ? true : false;
+            Debug.Log("Firing");
+            PlayerAnimator.SetBool(IsFiringHash, true);
+            //if(PlayerController.IsFiring == true)
+            //{
+            //    PlayerAnimator.SetBool(IsFiringHash, true);
+            //}
+            //else
+            //{
+            //    PlayerAnimator.SetBool(IsFiringHash, false);
+            //}
         }
 
         public void OnLook(InputValue obj)
