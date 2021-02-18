@@ -1377,9 +1377,34 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &985043780 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6040867984467747398, guid: e1e0f658721711f4581cc71bd1b6c070, type: 3}
+  m_PrefabInstance: {fileID: 6039889893534823934}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &985043789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985043780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6663bcfe85d5442409c6d8951db29908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FollowTarget: {fileID: 1480160684}
+  RotationSpeed: 0.1
+  HorizontalDamping: 20
 --- !u!4 &1190272678 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1190272678, guid: e1e0f658721711f4581cc71bd1b6c070, type: 3}
+  m_PrefabInstance: {fileID: 6039889893534823934}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1480160684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1190272677, guid: e1e0f658721711f4581cc71bd1b6c070, type: 3}
   m_PrefabInstance: {fileID: 6039889893534823934}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1488425197

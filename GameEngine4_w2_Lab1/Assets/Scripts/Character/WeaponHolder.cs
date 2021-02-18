@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Character.UI;
+using Character;
 using System;
+using Weapon;
+using Character.UI;
 
 
 namespace Character
 {
+
     public class WeaponHolder : MonoBehaviour
     {
         [Header("Weapon to Spawn"), SerializeField]
@@ -22,13 +25,14 @@ namespace Character
 
         //Ref
         private Camera viewCamera;
-        private static readonly int AimHorizontalHash = Animator.StringToHash("AimHorizontal");
-        private static readonly int AimVerticalHash = Animator.StringToHash("AimVertical");
-        private static readonly int IsFiringHash = Animator.StringToHash("IsFiring");
-        private static readonly int IsReloadingHash = Animator.StringToHash("IsReloading");
+        private WeaponComponent EquippedWeapon;
+        private readonly int AimHorizontalHash = Animator.StringToHash("AimHorizontal");
+        private readonly int AimVerticalHash = Animator.StringToHash("AimVertical");
+        private readonly int IsFiringHash = Animator.StringToHash("IsFiring");
+        private readonly int IsReloadingHash = Animator.StringToHash("IsReloading");
         private void Awake()
         {
-           // base.Awake();
+            // base.Awake();
             PlayerAnimator = GetComponent<Animator>();
 
             PlayerController = GetComponent<PlayerController>();
@@ -43,14 +47,19 @@ namespace Character
         void Start()
         {
             GameObject spawnweapon = Instantiate(weaponToSpawn, weaponSocketLocation.position, weaponSocketLocation.rotation, weaponSocketLocation);
-            if(spawnweapon)
-            {
-                WeaponComponent weapon = spawnweapon.GetComponent<WeaponComponent>();
-                if(weapon)
-                {
-                    GripIKLocation = weapon.GripLocation;
-                }
-            }
+            if (!spawnweapon) return;
+
+            spawnweapon.transform.parent = weaponSocketLocation;
+            EquippedWeapon = spawnweapon.GetComponent<WeaponComponent>();
+            GripIKLocation = EquippedWeapon.GripLocation;
+            EquippedWeapon.Initialize(this, PlayerController.Crosshair);
+            //WeaponComponent weapon = spawnweapon.GetComponent<WeaponComponent>();
+            //if (weapon)
+            //{
+            //    GripIKLocation = weapon.GripLocation;
+            //}
+            //weapon.Initialize(this, PlayerController.Crosshair);
+
         }
 
         private void OnAnimatorIK(int layerIndex)
@@ -61,14 +70,24 @@ namespace Character
         public void OnReload(InputValue pressed)
         {
             Debug.Log("Reloading");
-
+            PlayerController.IsReloading = true;
             PlayerAnimator.SetBool(IsReloadingHash, true);
         }
         public void OnFire(InputValue pressed)
         {
-           // bool isFiring = pressed.ReadValue<float>() == 1.0f ? true : false;
+            // bool isFiring = pressed.ReadValue<float>() == 1.0f ? true : false;
             Debug.Log("Firing");
-            PlayerAnimator.SetBool(IsFiringHash, true);
+            // PlayerAnimator.SetBool(IsFiringHash, true);
+            if (pressed.isPressed)
+            {
+                PlayerController.IsFiring = true;
+                PlayerAnimator.SetBool(IsFiringHash, true);
+            }
+            else
+            {
+                PlayerController.IsFiring = false;
+                PlayerAnimator.SetBool(IsFiringHash, false);
+            }
             //if(PlayerController.IsFiring == true)
             //{
             //    PlayerAnimator.SetBool(IsFiringHash, true);
@@ -101,7 +120,5 @@ namespace Character
         //    GameInput.PlayerActionMap.Look.performed -= OnLook;
         //}
     }
-
-
 
 }

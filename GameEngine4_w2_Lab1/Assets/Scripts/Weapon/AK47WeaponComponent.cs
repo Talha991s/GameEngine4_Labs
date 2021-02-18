@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Weapon;
+
+namespace Weapon
+{
+    public class AK47WeaponComponent : WeaponComponent
+    {
+        private Camera ViewCamera;
+        private RaycastHit HitLocation;
+        private void Awake()
+        {
+            ViewCamera = Camera.main;
+        }
+
+        protected new void FireWeapon()
+        {
+            Ray screenRay = ViewCamera.ScreenPointToRay(new Vector3(Crosshair.CurrentAimPosition.x, Crosshair.CurrentAimPosition.y,0.0f));
+
+            if (!Physics.Raycast(screenRay, out RaycastHit hit, WeaponStats.FireDistance, 
+                WeaponStats.WeaponHitLayer)) return;
+            HitLocation = hit;
+
+        }
+
+        private void OnDrawGizmos()
+        {
+            if(HitLocation.transform)
+            {
+                Gizmos.DrawSphere(HitLocation.point, 0.2f);
+            }
+           
+        }
+    }
+}
+
+

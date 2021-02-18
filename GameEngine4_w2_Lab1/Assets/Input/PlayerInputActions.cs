@@ -56,7 +56,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""id"": ""7001ef05-6cd2-4a84-b58b-f81b345ea3c1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": ""NormalizeVector2"",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 },
                 {
                     ""name"": ""Reload"",
@@ -160,7 +160,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""2d0239ae-7b94-4716-9ca5-63f5602b8293"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Fire"",
