@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Character;
+using Weapon;
 using Character.UI;
 using System;
 
@@ -25,10 +26,11 @@ namespace Weapon
     }
     public class WeaponComponent : MonoBehaviour
     {
+        //public Transform handposition;
         public Transform GripLocation => GripIKLocation;
         [SerializeField] private Transform GripIKLocation;
 
-        public bool Firing = false;
+        public bool Firing { get; private set; }
 
         [SerializeField] protected WeaponStats WeaponStats;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using Weapon;
 
 namespace Weapon
@@ -9,6 +10,7 @@ namespace Weapon
     {
         private Camera ViewCamera;
         private RaycastHit HitLocation;
+
         private void Awake()
         {
             ViewCamera = Camera.main;
@@ -16,11 +18,19 @@ namespace Weapon
 
         protected new void FireWeapon()
         {
-            Ray screenRay = ViewCamera.ScreenPointToRay(new Vector3(Crosshair.CurrentAimPosition.x, Crosshair.CurrentAimPosition.y,0.0f));
+            Debug.Log("FiringWEAPON"); 
+            Ray screenRay = ViewCamera.ScreenPointToRay(new Vector3(Crosshair.CurrentAimPosition.x,
+                Crosshair.CurrentAimPosition.y,0.0f));
 
-            if (!Physics.Raycast(screenRay, out RaycastHit hit, WeaponStats.FireDistance, 
-                WeaponStats.WeaponHitLayer)) return;
-            HitLocation = hit;
+            if (Physics.Raycast(screenRay, out RaycastHit hit, WeaponStats.FireDistance,
+                WeaponStats.WeaponHitLayer)) //return;
+            {
+                Vector3 RayDirection = HitLocation.point - ViewCamera.transform.position;
+
+                Debug.DrawRay(ViewCamera.transform.position, RayDirection * WeaponStats.FireDistance, Color.red);
+
+                HitLocation = hit;
+            }
 
         }
 

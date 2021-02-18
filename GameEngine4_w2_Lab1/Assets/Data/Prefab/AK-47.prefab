@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5275157762844023767}
-  - component: {fileID: 6808062957886697806}
+  - component: {fileID: 1087748731213679912}
   m_Layer: 0
   m_Name: AK-47
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6808062957886697806
+--- !u!114 &1087748731213679912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4305352491504144450}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d72d1725840f6654f83c88ddefd7dab3, type: 3}
+  m_Script: {fileID: 11500000, guid: 88d4216c16a0a4c44bc542525138e852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GripIKLocation: {fileID: 792760544751769053}

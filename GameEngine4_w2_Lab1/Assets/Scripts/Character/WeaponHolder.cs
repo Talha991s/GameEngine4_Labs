@@ -69,24 +69,26 @@ namespace Character
         }
         public void OnReload(InputValue pressed)
         {
-            Debug.Log("Reloading");
+           // Debug.Log("Reloading");
             PlayerController.IsReloading = true;
             PlayerAnimator.SetBool(IsReloadingHash, true);
         }
         public void OnFire(InputValue pressed)
         {
             // bool isFiring = pressed.ReadValue<float>() == 1.0f ? true : false;
-            Debug.Log("Firing");
+           // Debug.Log("Firing");
             // PlayerAnimator.SetBool(IsFiringHash, true);
             if (pressed.isPressed)
             {
                 PlayerController.IsFiring = true;
                 PlayerAnimator.SetBool(IsFiringHash, true);
+                EquippedWeapon.StartFiring();
             }
             else
             {
                 PlayerController.IsFiring = false;
                 PlayerAnimator.SetBool(IsFiringHash, false);
+                EquippedWeapon.StopFiring();
             }
             //if(PlayerController.IsFiring == true)
             //{
@@ -102,7 +104,7 @@ namespace Character
         {
             Vector3 independentMousePosition = viewCamera.ScreenToViewportPoint(PlayerController.Crosshair.CurrentAimPosition);
             //Vector3 independentMousePosition = viewCamera.ScreenToViewportPoint(PlayerCrosshair.CurrentAimPosition);
-            Debug.Log(independentMousePosition);
+            //Debug.Log(independentMousePosition);
 
             PlayerAnimator.SetFloat(AimHorizontalHash, independentMousePosition.x);
             PlayerAnimator.SetFloat(AimVerticalHash, independentMousePosition.y);
