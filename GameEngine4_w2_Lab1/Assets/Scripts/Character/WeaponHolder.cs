@@ -53,6 +53,7 @@ namespace Character
             EquippedWeapon = spawnweapon.GetComponent<WeaponComponent>();
             GripIKLocation = EquippedWeapon.GripLocation;
             EquippedWeapon.Initialize(this, PlayerController.Crosshair);
+            PlayerEvents.Invoke_OnWeaponEquipped(EquippedWeapon);
             //WeaponComponent weapon = spawnweapon.GetComponent<WeaponComponent>();
             //if (weapon)
             //{

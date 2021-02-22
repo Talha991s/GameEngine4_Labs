@@ -33,10 +33,11 @@ namespace Weapon
 
                     HitLocation = hit;
                 }
+                WeaponStats.BulletInClip--;
             }
             else
             {
-
+                StartReloading();
             }
 
 

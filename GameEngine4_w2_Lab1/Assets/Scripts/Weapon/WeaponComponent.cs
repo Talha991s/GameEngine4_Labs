@@ -33,7 +33,7 @@ namespace Weapon
         public bool Firing { get; private set; }
         public bool Reloading { get; private set; }
 
-        [SerializeField] protected WeaponStats WeaponStats;
+       public WeaponStats WeaponStats;
 
         protected WeaponHolder WeaponHolder;
         protected Crosshair Crosshair;

@@ -49,7 +49,7 @@ MonoBehaviour:
   WeaponStats:
     Name: AK-47
     Damage: 10
-    BulletInClip: 0
+    BulletInClip: 10
     ClipSize: 20
     TotalBulletAvailable: 100
     FireStartsDelay: 0
