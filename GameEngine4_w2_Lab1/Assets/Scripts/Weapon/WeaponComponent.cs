@@ -31,6 +31,7 @@ namespace Weapon
         [SerializeField] private Transform GripIKLocation;
 
         public bool Firing { get; private set; }
+        public bool Reloading { get; private set; }
 
         [SerializeField] protected WeaponStats WeaponStats;
 
@@ -62,6 +63,32 @@ namespace Weapon
         protected virtual void FireWeapon()
         {
 
+        }
+        public void StartReloading()
+        {
+            Reloading = true;
+            ReloadWeapon();
+        }
+
+        public void StopReloading()
+        {
+            Reloading = false;
+        }
+        private void ReloadWeapon()
+        {
+            int bulletRoReload = WeaponStats.TotalBulletAvailable - WeaponStats.ClipSize;
+            if(bulletRoReload <0)
+            {
+                Debug.Log("OUT OF AMMO");
+                WeaponStats.BulletInClip += WeaponStats.TotalBulletAvailable;
+                WeaponStats.TotalBulletAvailable = 0;
+            }
+            else
+            {
+                Debug.Log("Reload");
+                WeaponStats.BulletInClip = WeaponStats.ClipSize;
+                WeaponStats.TotalBulletAvailable -= WeaponStats.ClipSize;
+            }
         }
     }
 }

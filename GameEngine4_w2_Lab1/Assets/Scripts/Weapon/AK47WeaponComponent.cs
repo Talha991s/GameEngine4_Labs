@@ -19,18 +19,27 @@ namespace Weapon
         protected new void FireWeapon()
         {
             Debug.Log("FiringWEAPON"); 
-            Ray screenRay = ViewCamera.ScreenPointToRay(new Vector3(Crosshair.CurrentAimPosition.x,
-                Crosshair.CurrentAimPosition.y,0.0f));
-
-            if (Physics.Raycast(screenRay, out RaycastHit hit, WeaponStats.FireDistance,
-                WeaponStats.WeaponHitLayer)) //return;
+            if(WeaponStats.BulletInClip >0 && !Reloading)
             {
-                Vector3 RayDirection = HitLocation.point - ViewCamera.transform.position;
+                Ray screenRay = ViewCamera.ScreenPointToRay(new Vector3(Crosshair.CurrentAimPosition.x,
+                    Crosshair.CurrentAimPosition.y, 0.0f));
 
-                Debug.DrawRay(ViewCamera.transform.position, RayDirection * WeaponStats.FireDistance, Color.red);
+                if (Physics.Raycast(screenRay, out RaycastHit hit, WeaponStats.FireDistance,
+                    WeaponStats.WeaponHitLayer)) //return;
+                {
+                    Vector3 RayDirection = HitLocation.point - ViewCamera.transform.position;
 
-                HitLocation = hit;
+                    Debug.DrawRay(ViewCamera.transform.position, RayDirection * WeaponStats.FireDistance, Color.red);
+
+                    HitLocation = hit;
+                }
             }
+            else
+            {
+
+            }
+
+
 
         }
 

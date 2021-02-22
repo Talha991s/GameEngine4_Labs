@@ -69,9 +69,26 @@ namespace Character
         }
         public void OnReload(InputValue pressed)
         {
-           // Debug.Log("Reloading");
+            // Debug.Log("Reloading");
+            StartReloading();
+
+        }
+        public void StartReloading()
+        {
             PlayerController.IsReloading = true;
             PlayerAnimator.SetBool(IsReloadingHash, true);
+            EquippedWeapon.StartReloading();
+
+            InvokeRepeating(nameof(StopReloading), 0.0f, 0.1f);
+        }
+        public void StopReloading()
+        {
+            if (PlayerAnimator.GetBool(IsReloadingHash)) return;
+
+            PlayerController.IsReloading = false;
+            EquippedWeapon.StopReloading();
+
+            CancelInvoke(nameof(StopReloading));
         }
         public void OnFire(InputValue pressed)
         {
