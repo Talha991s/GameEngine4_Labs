@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.AI;
 
 namespace Character
 {
@@ -18,6 +19,7 @@ namespace Character
         private Transform PlayerTransform;
         private Animator PlayerAnimator;
         private Rigidbody PlayerRigidBody;
+        private NavMeshAgent MeshAgent;
 
         private Vector2 InputVector = Vector2.zero;
         private Vector3 MoveDirection = Vector3.zero;
@@ -35,6 +37,7 @@ namespace Character
             PlayerController = GetComponent<PlayerController>();
             PlayerAnimator = GetComponent<Animator>();
             PlayerRigidBody = GetComponent<Rigidbody>();
+            MeshAgent = GetComponent<NavMeshAgent>();
         }
 
         public void OnMovement(InputValue value)
@@ -54,9 +57,19 @@ namespace Character
         }
         public void OnJump(InputValue value)
         {
+
+            if (PlayerController.IsJumping) return;
+
             PlayerController.IsJumping = value.isPressed;
             PlayerAnimator.SetBool(IsJumpingHash, value.isPressed);
 
+            MeshAgent.enabled = false;
+            Invoke(nameof(Jump), 0.1f);
+
+            
+        }
+        public void Jump()
+        {
             PlayerRigidBody.AddForce((PlayerTransform.up + MoveDirection) * JumpForce, ForceMode.Impulse);
         }
 
@@ -75,13 +88,16 @@ namespace Character
 
             Vector3 movementDirection = MoveDirection * (currentSpeed * Time.deltaTime);
 
-            PlayerTransform.position += movementDirection;
+            MeshAgent.Move(movementDirection);
+
+            //PlayerTransform.position += movementDirection;
         }
 
         private void OnCollisionEnter(Collision other)
         {
             if (!other.gameObject.CompareTag("Ground") && !PlayerController.IsJumping) return;
-            
+
+            MeshAgent.enabled = true;
             PlayerController.IsJumping = false;
             PlayerAnimator.SetBool(IsJumpingHash, false);
         }
