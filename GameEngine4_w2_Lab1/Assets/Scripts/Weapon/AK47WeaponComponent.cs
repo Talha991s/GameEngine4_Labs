@@ -41,9 +41,6 @@ namespace Weapon
             {
                 WeaponHolder.StopReloading();
             }
-
-
-
         }
 
         private void OnDrawGizmos()
