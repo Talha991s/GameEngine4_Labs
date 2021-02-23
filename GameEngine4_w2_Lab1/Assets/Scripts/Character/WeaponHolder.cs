@@ -19,9 +19,13 @@ namespace Character
         private Transform GripIKLocation;
 
         //compnents
-        private PlayerController PlayerController;
+        public PlayerController Controller => PlayerController;
+        public PlayerController PlayerController;
         private Crosshair PlayerCrosshair;
         private Animator PlayerAnimator;
+
+        private bool WasFiring = false;
+        private bool FiringPressed = false;
 
         //Ref
         private Camera viewCamera;
@@ -30,6 +34,7 @@ namespace Character
         private readonly int AimVerticalHash = Animator.StringToHash("AimVertical");
         private readonly int IsFiringHash = Animator.StringToHash("IsFiring");
         private readonly int IsReloadingHash = Animator.StringToHash("IsReloading");
+        private readonly int WeaponTypeHash = Animator.StringToHash("WeaponType");
         private void Awake()
         {
             // base.Awake();
@@ -53,6 +58,8 @@ namespace Character
             EquippedWeapon = spawnweapon.GetComponent<WeaponComponent>();
             GripIKLocation = EquippedWeapon.GripLocation;
             EquippedWeapon.Initialize(this, PlayerController.Crosshair);
+            PlayerAnimator.SetInteger(WeaponTypeHash,(int)EquippedWeapon.WeaponStats.WeaponType);
+
             PlayerEvents.Invoke_OnWeaponEquipped(EquippedWeapon);
             //WeaponComponent weapon = spawnweapon.GetComponent<WeaponComponent>();
             //if (weapon)
@@ -76,6 +83,13 @@ namespace Character
         }
         public void StartReloading()
         {
+            if(EquippedWeapon.WeaponStats.TotalBulletAvailable <= 0 
+                && PlayerController.IsFiring)
+            {
+                StopFiring();
+                return;
+            }
+
             PlayerController.IsReloading = true;
             PlayerAnimator.SetBool(IsReloadingHash, true);
             EquippedWeapon.StartReloading();
@@ -90,23 +104,26 @@ namespace Character
             EquippedWeapon.StopReloading();
 
             CancelInvoke(nameof(StopReloading));
+
+            if (!WasFiring && !FiringPressed) return;
+            
+            StartFiring();
+            WasFiring = false;
+            
         }
         public void OnFire(InputValue pressed)
         {
             // bool isFiring = pressed.ReadValue<float>() == 1.0f ? true : false;
-           // Debug.Log("Firing");
+            // Debug.Log("Firing");
             // PlayerAnimator.SetBool(IsFiringHash, true);
+            FiringPressed = pressed.isPressed;
             if (pressed.isPressed)
             {
-                PlayerController.IsFiring = true;
-                PlayerAnimator.SetBool(IsFiringHash, true);
-                EquippedWeapon.StartFiring();
+                StartFiring();
             }
             else
             {
-                PlayerController.IsFiring = false;
-                PlayerAnimator.SetBool(IsFiringHash, false);
-                EquippedWeapon.StopFiring();
+                StopFiring();
             }
             //if(PlayerController.IsFiring == true)
             //{
@@ -116,6 +133,22 @@ namespace Character
             //{
             //    PlayerAnimator.SetBool(IsFiringHash, false);
             //}
+        }
+
+        private void StartFiring()
+        {
+            if (EquippedWeapon.WeaponStats.TotalBulletAvailable <= 0
+                && EquippedWeapon.WeaponStats.BulletInClip <= 0) return;
+
+            PlayerController.IsFiring = true;
+            PlayerAnimator.SetBool(IsFiringHash, true);
+            EquippedWeapon.StartFiring();
+        }
+        private void StopFiring()
+        {
+            PlayerController.IsFiring = false;
+            PlayerAnimator.SetBool(IsFiringHash, false);
+            EquippedWeapon.StopFiring();
         }
 
         public void OnLook(InputValue obj)

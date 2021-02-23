@@ -16,11 +16,13 @@ namespace Weapon
             ViewCamera = Camera.main;
         }
 
-        protected new void FireWeapon()
+        protected override void FireWeapon()
         {
             Debug.Log("FiringWEAPON"); 
-            if(WeaponStats.BulletInClip >0 && !Reloading)
+
+            if(WeaponStats.BulletInClip >0 && !Reloading && !WeaponHolder.Controller.IsJumping)
             {
+                base.FireWeapon();
                 Ray screenRay = ViewCamera.ScreenPointToRay(new Vector3(Crosshair.CurrentAimPosition.x,
                     Crosshair.CurrentAimPosition.y, 0.0f));
 
@@ -33,11 +35,11 @@ namespace Weapon
 
                     HitLocation = hit;
                 }
-                WeaponStats.BulletInClip--;
+                
             }
-            else
+            else if (WeaponStats.BulletInClip <= 0)
             {
-                StartReloading();
+                WeaponHolder.StopReloading();
             }
 
 

@@ -8,9 +8,18 @@ using System;
 
 namespace Weapon
 {
+
+    public enum WeaponType
+    {
+        None,
+        MachineGun,
+        Pistol
+    }
+
     [Serializable]
     public struct WeaponStats
     {
+        public WeaponType WeaponType;
         public string Name;
         public float Damage;
         public int BulletInClip;
@@ -62,7 +71,7 @@ namespace Weapon
         }
         protected virtual void FireWeapon()
         {
-
+            WeaponStats.BulletInClip--;
         }
         public void StartReloading()
         {
@@ -74,20 +83,20 @@ namespace Weapon
         {
             Reloading = false;
         }
-        private void ReloadWeapon()
+        protected virtual void ReloadWeapon()
         {
-            int bulletRoReload = WeaponStats.TotalBulletAvailable - WeaponStats.ClipSize;
+            int bulletRoReload = WeaponStats.ClipSize - WeaponStats.TotalBulletAvailable;
             if(bulletRoReload <0)
             {
                 Debug.Log("OUT OF AMMO");
-                WeaponStats.BulletInClip += WeaponStats.TotalBulletAvailable;
-                WeaponStats.TotalBulletAvailable = 0;
+                WeaponStats.BulletInClip  = WeaponStats.ClipSize;
+                WeaponStats.TotalBulletAvailable -= WeaponStats.ClipSize;
             }
             else
             {
                 Debug.Log("Reload");
-                WeaponStats.BulletInClip = WeaponStats.ClipSize;
-                WeaponStats.TotalBulletAvailable -= WeaponStats.ClipSize;
+                WeaponStats.BulletInClip = WeaponStats.TotalBulletAvailable;
+                WeaponStats.TotalBulletAvailable =0;
             }
         }
     }

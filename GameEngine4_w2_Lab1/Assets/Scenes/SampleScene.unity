@@ -2738,6 +2738,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1087748731213679912, guid: 7696451661cb5c04da205861fee489f1, type: 3}
+      propertyPath: WeaponStats.WeaponType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4305352491504144450, guid: 7696451661cb5c04da205861fee489f1, type: 3}
       propertyPath: m_Name
       value: AK-47
