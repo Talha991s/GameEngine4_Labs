@@ -60,6 +60,8 @@ namespace Character
             if (!EquippedWeapon) return;
             
             EquippedWeapon.Initialize(this, PlayerCrosshair);
+
+            PlayerEvents.Invoke_OnWeaponEquipped(EquippedWeapon);
             
             GripIKLocation = EquippedWeapon.GripLocation;
             PlayerAnimator.SetInteger(WeaponTypeHash, (int)EquippedWeapon.WeaponInformation.WeaponType);
