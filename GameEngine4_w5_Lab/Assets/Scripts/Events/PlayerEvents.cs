@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Weapons;
 
-public class PlayerEvents 
+public class PlayerEvents
 {
     public delegate void OnWeaponEquippedEvent(WeaponComponent weaponComponent);
 
@@ -11,6 +11,7 @@ public class PlayerEvents
 
     public static void Invoke_OnWeaponEquipped(WeaponComponent weaponComponent)
     {
-       OnWeaponEquipped?.Invoke(weaponComponent);
+        OnWeaponEquipped?.Invoke(weaponComponent);
     }
+   
 }

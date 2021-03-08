@@ -15,7 +15,7 @@ namespace Weapons
             {
                 base.FireWeapon();
 
-                if(!FiringEffect)
+                if (!FiringEffect)
                 {
                     FiringEffect = Instantiate(FiringAnimation, ParticleSpawnLocation).GetComponent<ParticleSystem>();
                 }
@@ -37,8 +37,6 @@ namespace Weapons
 
                 WeaponHolder.StartReloading();
             }
-
-          
         }
 
         private void OnDrawGizmos()
