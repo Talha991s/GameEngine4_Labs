@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Systems.Health;
 public class ZombieAttackState : ZombieStates
 {
     private GameObject FollowTarget;
     private float AttackRange = 1.5f;
-    
+
+    private IDamagable damagableObject;
+
     private static readonly int MovementZHash = Animator.StringToHash("MovementZ");
     private static readonly int IsAttackingHash = Animator.StringToHash("isAttacking");
 
@@ -14,6 +16,8 @@ public class ZombieAttackState : ZombieStates
     {
         FollowTarget = followTarget;
         UpdateInterval = 2.0f;
+
+        damagableObject = followTarget.GetComponent<IDamagable>();
     }
     
     // Start is called before the first frame update
@@ -29,6 +33,7 @@ public class ZombieAttackState : ZombieStates
     {
         base.IntervalUpdate();
         //TODO: Add Damage to object.
+        damagableObject?.TakeDamage(OwnerZombie.zombieDamage);
     }
 
     // Update is called once per frame
@@ -44,6 +49,7 @@ public class ZombieAttackState : ZombieStates
         
         //TODO: Zombie Health < 0 Die.
     }
+
 
     public override void Exit()
     {

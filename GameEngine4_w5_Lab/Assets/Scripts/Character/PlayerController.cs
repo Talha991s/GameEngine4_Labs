@@ -1,10 +1,14 @@
 using Character.UI;
 using UnityEngine;
+using Systems.Health;
 
 namespace Character
 {
+  
+    [RequireComponent(typeof(PlayerHealthComponent))]
     public class PlayerController : MonoBehaviour
     {
+        
         public CrossHairScript CrossHair => CrossHairComponent;
         [SerializeField] private CrossHairScript CrossHairComponent;
         

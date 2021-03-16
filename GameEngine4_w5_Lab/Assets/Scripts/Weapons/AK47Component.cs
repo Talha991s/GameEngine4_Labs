@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Systems.Health;
 
 namespace Weapons
 {
@@ -27,6 +28,7 @@ namespace Weapons
                     WeaponStats.FireDistance, WeaponStats.WeaponHitLayers)) return;
             
                 HitLocation = hit.point;
+                TakeDamage(hit);
             
                 Vector3 hitDirection = hit.point - MainCamera.transform.position;
                 Debug.DrawRay(MainCamera.transform.position, hitDirection.normalized * WeaponStats.FireDistance, Color.red);
@@ -38,7 +40,11 @@ namespace Weapons
                 WeaponHolder.StartReloading();
             }
         }
-
+        private void TakeDamage(RaycastHit hitInfo)
+        {
+            IDamagable damagable = hitInfo.collider.GetComponent<IDamagable>();
+            damagable?.TakeDamage(WeaponInformation.Damage);
+        }
         private void OnDrawGizmos()
         {
             if (HitLocation == Vector3.zero) return;
