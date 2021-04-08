@@ -6,9 +6,16 @@ using System;
 public class LoadGameWidget : MenuWidget
 {
     private GameDataList gameData;
+    [Header("References")]
+    [SerializeField] private RectTransform LoadItemsPanel;
+    [Header("Prefab")]
+    [SerializeField] private GameObject SaveSlotPrefab;
+
     // Start is called before the first frame update
     private const string SaveFileKey = "FileSaveData";
     [SerializeField] private bool Debug; 
+
+
     void Start()
     {
         if (Debug) SaveDebugData();
@@ -29,7 +36,10 @@ public class LoadGameWidget : MenuWidget
 
         if (gameData.SaveFileNames.Count <= 0) return;
 
-        UnityEngine.Debug.Log(gameData.SaveFileNames);
+        foreach (string saveName in gameData.SaveFileNames)
+        {
+            RectTransform widget = Instantiate(SaveSlotPrefab, LoadItemsPanel).GetComponent<RectTransform>();
+        }
     }
 }
 
